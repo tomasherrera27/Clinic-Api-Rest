@@ -35,8 +35,8 @@ public class OdontologistService implements IOdontologistService {
 
     @Override
     public void deleteById(@NotNull Integer id) {
-        odontologistRepository.deleteById(id);
-
+        Odontologist odontologist = odontologistRepository.getById(id);
+        odontologistRepository.delete(odontologist);
     }
 
     @Override

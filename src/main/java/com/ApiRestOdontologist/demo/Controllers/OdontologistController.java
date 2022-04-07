@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/odontologos")
 public class OdontologistController {
@@ -18,9 +20,31 @@ public class OdontologistController {
         OdontologistDTO odontologistDTO = odontologistService.findById(id);
         return new ResponseEntity<>(odontologistDTO, HttpStatus.OK);
     }
+    @GetMapping()
+    public ResponseEntity<List<OdontologistDTO>> findAll(){
+        return  ResponseEntity.ok(odontologistService.findAll());
+    }
     @PostMapping("/registrarOdontologo")
     public ResponseEntity<OdontologistDTO> crateOdontologist(@RequestBody OdontologistDTO odontologistDTO){
         OdontologistDTO newOdontologistDTO = odontologistService.Create(odontologistDTO);
         return new ResponseEntity<>(newOdontologistDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/editarOdontologo")
+    public ResponseEntity<OdontologistDTO> editOdontologist(@RequestBody OdontologistDTO odontologistDTO){
+        OdontologistDTO editedOdontologist = odontologistService.update(odontologistDTO);
+        return new ResponseEntity<>(editedOdontologist, HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") Integer id){
+        ResponseEntity<String> response = null;
+        if (odontologistService.findById(id) != null){
+            odontologistService.deleteById(id);
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("Eliminado");
+
+        }else{
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("no se pudo eliminar");
+        }
+        return response;
     }
 }
