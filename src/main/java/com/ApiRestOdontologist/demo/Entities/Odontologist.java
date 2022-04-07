@@ -1,11 +1,11 @@
 package com.ApiRestOdontologist.demo.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
+
 @Data
 @Entity
 
@@ -16,6 +16,9 @@ public class Odontologist {
     private String name;
     private String lastname;
     private String licence;
+    @OneToMany(mappedBy = "odontologist", cascade = CascadeType.ALL, orphanRemoval = false)
+    @JsonIgnore
+    private Set<Turn> turn;
 
     public Odontologist() {
     }
