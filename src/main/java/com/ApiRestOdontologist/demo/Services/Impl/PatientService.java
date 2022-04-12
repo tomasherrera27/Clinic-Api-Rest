@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,6 +54,12 @@ public class PatientService implements IPatientService {
         List<PatientDTO> patientDTOList = patientsList.stream().map(patient -> mapToDTO(patient)).collect(Collectors.toList());
         return patientDTOList;
     }
+
+    @Override
+    public Set<PatientDTO> listTurns() {
+        return null;
+    }
+
     @Override
     public PatientDTO getPatientByEmail(String email){
         Patient patient = patientRepository.findPatientByEmail(email);

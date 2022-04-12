@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,6 +51,11 @@ public class AddressService implements IAddressService {
         List<Address> addressList = addressRepository.findAll();
         List<AddressDTO> addressDTOList = addressList.stream().map(address -> mapToDTO(address)).collect(Collectors.toList());
         return  addressDTOList;
+    }
+
+    @Override
+    public Set<AddressDTO> listTurns() {
+        return null;
     }
 
 

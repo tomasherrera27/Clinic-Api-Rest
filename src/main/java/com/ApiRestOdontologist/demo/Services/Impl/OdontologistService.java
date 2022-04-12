@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,6 +52,11 @@ public class OdontologistService implements IOdontologistService {
         List<Odontologist> list = odontologistRepository.findAll();
         List<OdontologistDTO> DTOlist = list.stream().map(odontologist -> mapDTO(odontologist)).collect(Collectors.toList());
         return DTOlist;
+    }
+
+    @Override
+    public Set<OdontologistDTO> listTurns() {
+        return null;
     }
 
     // mapper
