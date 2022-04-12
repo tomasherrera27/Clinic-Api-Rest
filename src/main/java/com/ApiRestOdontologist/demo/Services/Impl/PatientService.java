@@ -28,7 +28,7 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public PatientDTO Create(@NotNull PatientDTO patientDTO) {
+    public PatientDTO Create( PatientDTO patientDTO) {
         Patient newPatientSaved = patientRepository.save(mapToEntity(patientDTO));
         PatientDTO newPatientDTO = mapToDTO(newPatientSaved);
         return newPatientDTO;
