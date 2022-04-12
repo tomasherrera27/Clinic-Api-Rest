@@ -1,10 +1,13 @@
 package com.ApiRestOdontologist.demo.Entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 
 @Entity
+@Data
 public class Turn {
     @Id
     private Integer id;
