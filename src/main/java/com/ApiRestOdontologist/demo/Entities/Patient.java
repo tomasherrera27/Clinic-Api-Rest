@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -21,7 +22,7 @@ public class Patient {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_address", referencedColumnName = "id")
     private Address address;
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JsonIgnore
-    private Set<Turn> turns;
+    private Set<Turn> turns = new HashSet<>();
 }

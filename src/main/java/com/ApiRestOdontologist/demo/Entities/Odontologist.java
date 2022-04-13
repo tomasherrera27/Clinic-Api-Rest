@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -16,9 +17,9 @@ public class Odontologist {
     private String name;
     private String lastname;
     private String licence;
-    @OneToMany(mappedBy = "odontologist", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "odontologist", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonIgnore
-    private Set<Turn> turn;
+    private Set<Turn> turn = new HashSet<>();
 
     public Odontologist() {
     }

@@ -5,6 +5,7 @@ import com.ApiRestOdontologist.demo.Dto.TurnDTO;
 import com.ApiRestOdontologist.demo.Entities.Turn;
 import com.ApiRestOdontologist.demo.Repositories.ITurnRepository;
 import com.ApiRestOdontologist.demo.Services.ITurnService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.istack.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class TurnService implements ITurnService {
     ITurnRepository turnRepository;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    ObjectMapper mapper;
 
     @Override
     public TurnDTO findById(@NotNull Integer id) {
@@ -29,7 +32,7 @@ public class TurnService implements ITurnService {
     }
 
     @Override
-    public TurnDTO Create(@NotNull TurnDTO turnDTO) {
+    public TurnDTO Create(TurnDTO turnDTO) {
        Turn turn = mapToEntity(turnDTO);
        Turn newTurn = turnRepository.save(turn);
        return mapToDTO(newTurn);
@@ -56,12 +59,13 @@ public class TurnService implements ITurnService {
 
     @Override
     public Set<TurnDTO> listTurns() {
-        List<Turn> list = turnRepository.findAll();
-        Set<TurnDTO> DTOlist = new HashSet<>();
-        for (Turn turn: list){
-            DTOlist.add(mapToDTO(turn));
+        List<Turn> turnos = turnRepository.findAll();
+        Set<TurnDTO> turnosDto = new HashSet<>();
+
+        for( Turn turno : turnos){
+            turnosDto.add(mapper.convertValue(turno,TurnDTO.class));
         }
-        return DTOlist;
+        return turnosDto;
     }
 
 

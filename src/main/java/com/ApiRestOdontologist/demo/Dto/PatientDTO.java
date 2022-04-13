@@ -16,6 +16,5 @@ public class PatientDTO {
     private String dni;
     private Date accessDate;
     private Address address;
-    private Set<Turn> turns;
 }
 

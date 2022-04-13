@@ -10,15 +10,16 @@ import java.util.Date;
 @Data
 public class Turn {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Date date;
     private Time hour;
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="id_odontologist", nullable = false)
+    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name="id_odontologist")
     private Odontologist odontologist;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_patient", nullable = false)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name="id_patient", referencedColumnName = "id", nullable = false)
     private Patient patient;
 
 }

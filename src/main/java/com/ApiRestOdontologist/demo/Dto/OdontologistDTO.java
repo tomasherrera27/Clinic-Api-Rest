@@ -12,5 +12,4 @@ public class OdontologistDTO {
     private String name;
     private String lastname;
     private String licence;
-    private Set<Turn> turns;
 }
