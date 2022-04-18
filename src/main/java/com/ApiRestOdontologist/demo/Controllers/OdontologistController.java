@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/odontologos")
+@CrossOrigin(origins="*")
 public class OdontologistController {
     @Autowired
     private OdontologistService odontologistService;

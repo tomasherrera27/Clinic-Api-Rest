@@ -11,4 +11,12 @@ public class AddressDTO {
     private Integer number;
     private String location;
     private String province;
+
+    public AddressDTO(String street, Integer number, String location, String province) {
+        this.street = street;
+        this.number = number;
+        this.location = location;
+        this.province = province;
+    }
+
 }

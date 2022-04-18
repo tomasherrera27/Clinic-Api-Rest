@@ -1,6 +1,7 @@
 package com.ApiRestOdontologist.demo.Controllers;
 
 import com.ApiRestOdontologist.demo.Dto.TurnDTO;
+import com.ApiRestOdontologist.demo.Exceptions.ResourceNotFoundException;
 import com.ApiRestOdontologist.demo.Services.Impl.TurnService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,7 +17,7 @@ public class TurnController {
     @Autowired
     TurnService turnService;
     @PostMapping("/agendarTurno")
-    public ResponseEntity<?> saveTurn(@RequestBody TurnDTO turnDTO){
+    public ResponseEntity<?> saveTurn(@RequestBody TurnDTO turnDTO) {
         turnService.Create(turnDTO);
         return new ResponseEntity<>(turnDTO, HttpStatus.OK);
     }
@@ -26,12 +27,12 @@ public class TurnController {
         return new ResponseEntity<>(turnDTOS, HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> showOneTurn(@PathVariable Integer id){
+    public ResponseEntity<?> showOneTurn(@PathVariable Integer id) throws ResourceNotFoundException{
         TurnDTO turnDTO = turnService.findById(id);
         return new ResponseEntity<>(turnDTO, HttpStatus.OK);
     }
     @PutMapping("/acutualizar")
-    public ResponseEntity<?> update(@RequestBody TurnDTO turnDTO){
+    public ResponseEntity<?> update(@RequestBody TurnDTO turnDTO) throws ResourceNotFoundException{
         ResponseEntity response = null;
         if (turnService.findById(turnDTO.getId()) == null) {
             response = new ResponseEntity<>(turnDTO, HttpStatus.NOT_FOUND);
@@ -43,15 +44,10 @@ public class TurnController {
         return response;
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Integer id){
-        ResponseEntity response = null;
-        if (turnService.findById(id) == null) {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
-        } else {
+    public ResponseEntity<String> delete(@PathVariable Integer id) throws ResourceNotFoundException {
             turnService.deleteById(id);
-            response = new ResponseEntity<>("Turno  eliminado", HttpStatus.OK);
-        }
-        return  response;
+            return ResponseEntity.ok("eliminado");
     }
+
     }
 

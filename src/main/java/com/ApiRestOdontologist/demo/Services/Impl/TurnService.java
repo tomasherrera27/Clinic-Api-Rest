@@ -3,6 +3,7 @@ package com.ApiRestOdontologist.demo.Services.Impl;
 
 import com.ApiRestOdontologist.demo.Dto.TurnDTO;
 import com.ApiRestOdontologist.demo.Entities.Turn;
+import com.ApiRestOdontologist.demo.Exceptions.ResourceNotFoundException;
 import com.ApiRestOdontologist.demo.Repositories.ITurnRepository;
 import com.ApiRestOdontologist.demo.Services.ITurnService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,10 +26,10 @@ public class TurnService implements ITurnService {
     ObjectMapper mapper;
 
     @Override
-    public TurnDTO findById(@NotNull Integer id) {
-        Turn turn = turnRepository.getById(id);
-        TurnDTO turnDTO = mapToDTO(turn);
-        return turnDTO;
+    public TurnDTO findById(@NotNull Integer id) throws ResourceNotFoundException {
+        Turn turn = turnRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("turno no encontrado"));
+        return mapToDTO(turn);
     }
 
     @Override
@@ -40,8 +41,9 @@ public class TurnService implements ITurnService {
     }
 
     @Override
-    public void deleteById(@NotNull Integer id) {
-        Turn turn = turnRepository.getById(id);
+    public void deleteById(@NotNull Integer id) throws ResourceNotFoundException {
+        Turn turn = turnRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("no se pudo encontrar el id"));
         turnRepository.delete(turn);
     }
 
