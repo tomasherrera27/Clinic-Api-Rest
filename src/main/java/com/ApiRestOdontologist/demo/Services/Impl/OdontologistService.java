@@ -3,6 +3,7 @@ package com.ApiRestOdontologist.demo.Services.Impl;
 
 import com.ApiRestOdontologist.demo.Dto.OdontologistDTO;
 import com.ApiRestOdontologist.demo.Entities.Odontologist;
+import com.ApiRestOdontologist.demo.Exceptions.ResourceNotFoundException;
 import com.ApiRestOdontologist.demo.Repositories.IOdontologistRepository;
 import com.ApiRestOdontologist.demo.Services.IOdontologistService;
 import com.sun.istack.NotNull;

@@ -23,7 +23,11 @@ public class DataLoader implements ApplicationRunner {
         String password = passwordEncoder.encode("examplePassword");
         String password2 = passwordEncoder.encode("examplePassword2");
 
-        userRepository.save(new User("tomas","tomasherrera12@gmail.com",password, UserRoles.ADMIN));
-        userRepository.save(new User("user","user@gmail.com",password2, UserRoles.USER));
+        //userRepository.save(new User("tomas","tomasherrera12@gmail.com",password, UserRoles.ADMIN));
+        //userRepository.save(new User("user","user@gmail.com",password2, UserRoles.USER));
+       // userRepository.delete(userRepository.getById(3));
+       // userRepository.delete(userRepository.getById(4));
+        //userRepository.delete(userRepository.getById(5));
+       // userRepository.delete(userRepository.getById(6));
     }
 }

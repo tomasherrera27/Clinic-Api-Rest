@@ -2,6 +2,7 @@ package com.ApiRestOdontologist.demo.Controllers;
 
 import com.ApiRestOdontologist.demo.Dto.OdontologistDTO;
 import com.ApiRestOdontologist.demo.Entities.Odontologist;
+import com.ApiRestOdontologist.demo.Exceptions.ResourceNotFoundException;
 import com.ApiRestOdontologist.demo.Services.Impl.OdontologistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class OdontologistController {
         OdontologistDTO odontologistDTO = odontologistService.findById(id);
         return new ResponseEntity<>(odontologistDTO, HttpStatus.OK);
     }
+
     @GetMapping()
     public ResponseEntity<List<OdontologistDTO>> findAll(){
         return  ResponseEntity.ok(odontologistService.findAll());
@@ -37,7 +39,7 @@ public class OdontologistController {
         return new ResponseEntity<>(editedOdontologist, HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") Integer id){
+    public ResponseEntity<String> delete(@PathVariable("id") Integer id) throws ResourceNotFoundException {
         ResponseEntity<String> response = null;
         if (odontologistService.findById(id) != null){
             odontologistService.deleteById(id);
@@ -47,5 +49,6 @@ public class OdontologistController {
             response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("no se pudo eliminar");
         }
         return response;
+
     }
 }
