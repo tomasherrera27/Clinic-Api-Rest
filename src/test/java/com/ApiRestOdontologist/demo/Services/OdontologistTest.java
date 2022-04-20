@@ -2,6 +2,7 @@ package com.ApiRestOdontologist.demo.Services;
 
 
 import com.ApiRestOdontologist.demo.Dto.OdontologistDTO;
+import com.ApiRestOdontologist.demo.Entities.Odontologist;
 import com.ApiRestOdontologist.demo.Services.Impl.OdontologistService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @SpringBootTest
 public class OdontologistTest {
@@ -43,12 +43,15 @@ public class OdontologistTest {
         Assert.assertTrue(!odontologistList.isEmpty());
         Assert.assertTrue(odontologistList.size() > 0);
     }
- /*
+
     @Test
     public void deleteOdontologist() {
-        odontologistService.deleteById(27);
-        assertEquals(null, odontologistService.findById(27));
+        odontologistService.Create(odontologistDTO);
+        odontologistService.deleteById(3);
+        OdontologistDTO odontologistTest = odontologistService.findById(3);
+        assertTrue(odontologistTest == null);
     }
+
     @Test
     public void testUpdateDentist(){
         OdontologistDTO result = odontologistService.Create(odontologistDTO);
@@ -57,16 +60,5 @@ public class OdontologistTest {
        OdontologistDTO update = odontologistService.update(result);
         assertNotEquals(update, getCreate);
 
-    }*/
-    /*
-    @Test
-    public void testDeleteDentist()  {
-        OdontologistDTO result = odontologistService.Create(odontologistDTO);
-        assertNotNull(odontologistService.findById(result.getId()));
-        odontologistService.deleteById(result.getId());
-        assertThrows(Exception.class, () ->odontologistService.findById(result.getId()));
     }
-    */
-
-
 }

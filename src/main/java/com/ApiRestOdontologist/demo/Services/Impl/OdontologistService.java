@@ -6,12 +6,14 @@ import com.ApiRestOdontologist.demo.Entities.Odontologist;
 import com.ApiRestOdontologist.demo.Exceptions.ResourceNotFoundException;
 import com.ApiRestOdontologist.demo.Repositories.IOdontologistRepository;
 import com.ApiRestOdontologist.demo.Services.IOdontologistService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.istack.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,13 +21,20 @@ import java.util.stream.Collectors;
 public class OdontologistService implements IOdontologistService {
     @Autowired
     private IOdontologistRepository odontologistRepository;
+    //tuve que cambiar a object porque tuve algunos problemas con model mapper
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    ObjectMapper objectMapper;
 
     @Override
     public OdontologistDTO findById(@NotNull Integer id) {
-        Odontologist odontologist = odontologistRepository.getById(id);
-        return mapDTO(odontologist);
+        Optional<Odontologist> odontologist =  odontologistRepository.findById(id);
+        OdontologistDTO odontologistDTO = null;
+        if(odontologist != null)
+            odontologistDTO = objectMapper.convertValue(odontologist, OdontologistDTO.class);
+            return odontologistDTO;
+
     }
 
     @Override
