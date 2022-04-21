@@ -11,6 +11,8 @@
       type="text/css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="text/javascript" src="/js/AddOdontologist.js"></script>
   </head>
   <body>
       <header>
@@ -46,19 +48,19 @@
       <main>
         <section class="flex flex-col items-center justify-center mt-16 mb-16">
             <h2 class="font-bold text-3xl font-serif">Registrar un odontologo</h2>
-            <form class="flex flex-col items-center marker:justify-center w-96 border-2 border-cyan-400 mt-10 mb-10">
+            <form class="flex flex-col items-center marker:justify-center w-96 border-2 border-cyan-400 mt-10 mb-10" id="nuevoOdontologo">
                 <label class="label">
                     <span class="label-text text-xl">Nombre</span>
                 </label>
-                <input type="text" placeholder="Nombre" class="input input-bordered input-info w-full max-w-xs" name="name" ></input>
+                <input type="text" placeholder="Nombre" class="input input-bordered input-info w-full max-w-xs" id="nombre" name="name" ></input>
                 <label class="label">
                     <span class="label-text text-xl">Apellido</span>
                 </label>
-                <input type="text" placeholder="Apellido" class="input input-bordered input-info w-full max-w-xs" name="lastname"  ></input>
+                <input type="text" placeholder="Apellido" class="input input-bordered input-info w-full max-w-xs" id="apellido" name="lastname" ></input>
                 <label class="label">
                     <span class="label-text text-xl">Licencia</span>
                 </label>
-                <input type="text" placeholder="licencia" class="input input-bordered input-info w-full max-w-xs" name="licence"></input>
+                <input type="text" placeholder="licencia" class="input input-bordered input-info w-full max-w-xs" id="matricula" name="licence"></input>
                 <button class="btn btn-wide mt-5 mb-5">Crear Odontologo</button>
             </form>
         </section>
