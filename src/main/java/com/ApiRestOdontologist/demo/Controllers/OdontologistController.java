@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/odontologos")
@@ -24,7 +25,7 @@ public class OdontologistController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<OdontologistDTO>> findAll(){
+    public ResponseEntity<Set<OdontologistDTO>> findAll(){
         return  ResponseEntity.ok(odontologistService.findAll());
     }
     @PostMapping("/registrarOdontologo")

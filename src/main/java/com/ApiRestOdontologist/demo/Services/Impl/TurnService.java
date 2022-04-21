@@ -33,7 +33,7 @@ public class TurnService implements ITurnService {
     }
 
     @Override
-    public TurnDTO Create(TurnDTO turnDTO) {
+    public TurnDTO Create(TurnDTO turnDTO){
        Turn turn = mapToEntity(turnDTO);
        Turn newTurn = turnRepository.save(turn);
        return mapToDTO(newTurn);
@@ -48,20 +48,16 @@ public class TurnService implements ITurnService {
     }
 
     @Override
-    public TurnDTO update(TurnDTO turnDTO) {
+    public TurnDTO update(TurnDTO turnDTO){
         Turn turn = mapToEntity(turnDTO);
         Turn newTurn = turnRepository.save(turn);
         return mapToDTO(newTurn);
     }
 
     @Override
-    public List<TurnDTO> findAll() {
-        return null;
-    }
-
-    @Override
-    public Set<TurnDTO> listTurns() {
+    public Set<TurnDTO> findAll() {
         List<Turn> turnos = turnRepository.findAll();
+        //recorremos la lista para agregar a pacientes dto
         Set<TurnDTO> turnosDto = new HashSet<>();
 
         for( Turn turno : turnos){

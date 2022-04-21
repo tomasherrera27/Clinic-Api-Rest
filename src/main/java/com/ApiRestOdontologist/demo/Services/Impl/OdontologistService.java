@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -26,6 +27,8 @@ public class OdontologistService implements IOdontologistService {
     private ModelMapper modelMapper;
     @Autowired
     ObjectMapper objectMapper;
+    @Autowired
+    ObjectMapper mapper;
 
     @Override
     public OdontologistDTO findById(@NotNull Integer id) {
@@ -58,15 +61,13 @@ public class OdontologistService implements IOdontologistService {
     }
 
     @Override
-    public List<OdontologistDTO> findAll() {
+    public Set<OdontologistDTO> findAll() {
         List<Odontologist> list = odontologistRepository.findAll();
-        List<OdontologistDTO> DTOlist = list.stream().map(odontologist -> mapDTO(odontologist)).collect(Collectors.toList());
-        return DTOlist;
-    }
-
-    @Override
-    public Set<OdontologistDTO> listTurns() {
-        return null;
+        Set<OdontologistDTO> odontologistDTOS = new HashSet<>();
+        for(Odontologist odontologist : list){
+            odontologistDTOS.add(mapper.convertValue(odontologist, OdontologistDTO.class));
+        }
+        return odontologistDTOS;
     }
 
     // mapper

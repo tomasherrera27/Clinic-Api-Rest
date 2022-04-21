@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -39,26 +40,26 @@ public class OdontologistTest {
     }
     @Test
     public void listAll(){
-        List<OdontologistDTO> odontologistList = odontologistService.findAll();
+        Set<OdontologistDTO> odontologistList = odontologistService.findAll();
         Assert.assertTrue(!odontologistList.isEmpty());
         Assert.assertTrue(odontologistList.size() > 0);
     }
 
     @Test
     public void deleteOdontologist() {
-        odontologistService.Create(odontologistDTO);
-        odontologistService.deleteById(3);
-        OdontologistDTO odontologistTest = odontologistService.findById(3);
+        OdontologistDTO newOdon = odontologistService.Create(odontologistDTO);
+        odontologistService.deleteById(newOdon.getId());
+        OdontologistDTO odontologistTest = odontologistService.findById(newOdon.getId());
         assertTrue(odontologistTest == null);
     }
 
     @Test
     public void testUpdateDentist(){
         OdontologistDTO result = odontologistService.Create(odontologistDTO);
-        OdontologistDTO getCreate = odontologistService.findById(result.getId());
-        getCreate.setName("DentistUpdate");
+        OdontologistDTO getNew = odontologistService.findById(result.getId());
+        getNew.setName("New Name");
        OdontologistDTO update = odontologistService.update(result);
-        assertNotEquals(update, getCreate);
+        assertNotEquals(update, getNew);
 
     }
 }

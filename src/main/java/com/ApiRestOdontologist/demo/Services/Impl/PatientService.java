@@ -4,11 +4,13 @@ import com.ApiRestOdontologist.demo.Dto.PatientDTO;
 import com.ApiRestOdontologist.demo.Entities.Patient;
 import com.ApiRestOdontologist.demo.Repositories.IPatientRepository;
 import com.ApiRestOdontologist.demo.Services.IPatientService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.istack.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,6 +21,8 @@ public class PatientService implements IPatientService {
     IPatientRepository patientRepository;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    ObjectMapper mapper;
 
     @Override
     public PatientDTO findById(@NotNull  Integer id) {
@@ -49,16 +53,20 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public List<PatientDTO> findAll() {
-        List<Patient> patientsList = patientRepository.findAll();
-        List<PatientDTO> patientDTOList = patientsList.stream().map(patient -> mapToDTO(patient)).collect(Collectors.toList());
-        return patientDTOList;
+    public Set<PatientDTO> findAll() {
+        List<Patient> pacientes = patientRepository.findAll();
+
+        //recorremos la lista para agregar a pacientes dto
+        Set<PatientDTO> pacientesDTO = new HashSet<>();
+
+        for (Patient paciente : pacientes){
+            pacientesDTO.add(mapper.convertValue(paciente,PatientDTO.class));
+
+        }
+        return pacientesDTO;
     }
 
-    @Override
-    public Set<PatientDTO> listTurns() {
-        return null;
-    }
+
 
     @Override
     public PatientDTO getPatientByEmail(String email){

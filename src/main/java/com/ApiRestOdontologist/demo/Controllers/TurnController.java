@@ -1,14 +1,18 @@
 package com.ApiRestOdontologist.demo.Controllers;
 
 import com.ApiRestOdontologist.demo.Dto.TurnDTO;
+import com.ApiRestOdontologist.demo.Entities.Turn;
 import com.ApiRestOdontologist.demo.Exceptions.ResourceNotFoundException;
 import com.ApiRestOdontologist.demo.Services.Impl.TurnService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -16,15 +20,17 @@ import java.util.Set;
 public class TurnController {
     @Autowired
     TurnService turnService;
+
+
     @PostMapping("/agendarTurno")
-    public ResponseEntity<?> saveTurn(@RequestBody TurnDTO turnDTO) {
+    public ResponseEntity<?> saveTurn(@RequestBody TurnDTO turnDTO) throws ResourceNotFoundException {
         turnService.Create(turnDTO);
         return new ResponseEntity<>(turnDTO, HttpStatus.OK);
     }
     @GetMapping()
     public ResponseEntity<?> showTurns(){
-        Set<TurnDTO> turnDTOS = turnService.listTurns();
-        return new ResponseEntity<>(turnDTOS, HttpStatus.OK);
+        Set<TurnDTO> turnsDTO = turnService.findAll();
+        return new ResponseEntity<>(turnsDTO,HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> showOneTurn(@PathVariable Integer id) throws ResourceNotFoundException{

@@ -4,11 +4,13 @@ import com.ApiRestOdontologist.demo.Dto.AddressDTO;
 import com.ApiRestOdontologist.demo.Entities.Address;
 import com.ApiRestOdontologist.demo.Repositories.IAddressRepository;
 import com.ApiRestOdontologist.demo.Services.IAddressService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.istack.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,6 +21,9 @@ public class AddressService implements IAddressService {
     private IAddressRepository addressRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    ObjectMapper mapper;
+
     @Override
     public AddressDTO findById(@NotNull Integer id) {
         Address address = addressRepository.getById(id);
@@ -47,16 +52,17 @@ public class AddressService implements IAddressService {
     }
 
     @Override
-    public List<AddressDTO> findAll() {
+    public Set<AddressDTO> findAll() {
         List<Address> addressList = addressRepository.findAll();
-        List<AddressDTO> addressDTOList = addressList.stream().map(address -> mapToDTO(address)).collect(Collectors.toList());
-        return  addressDTOList;
+        Set<AddressDTO> addressDTOS = new HashSet<>();
+        for(Address address : addressList){
+            addressDTOS.add(mapper.convertValue(address, AddressDTO.class));
+
+        }
+        return  addressDTOS;
     }
 
-    @Override
-    public Set<AddressDTO> listTurns() {
-        return null;
-    }
+
 
 
     //------ MAPPER -----

@@ -10,6 +10,6 @@ public interface ICrudService<T> {
     T Create(T t);
     void deleteById(Integer id) throws ResourceNotFoundException;
     T update(T t);
-    List<T> findAll();
-    Set<T> listTurns();
+    Set<T> findAll();
+
 }

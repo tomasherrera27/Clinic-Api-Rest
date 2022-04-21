@@ -1,22 +1,16 @@
 package com.ApiRestOdontologist.demo.Controllers;
 
+import com.ApiRestOdontologist.demo.Dto.OdontologistDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class UserController {
-    @GetMapping("/")
-    public String home(){
-        return "<h1>Bienvenido</h1>";
-    }
-    @GetMapping("/user")
-    public String user(){
-        return "<h1>Bienvenido user</h1>";
-    }
-    @GetMapping("/admin")
-    public String admin(){
-        return "<h1>Bienvenido admin</h1>";
-    }
+
+
 }

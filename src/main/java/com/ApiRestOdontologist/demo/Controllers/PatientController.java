@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/pacientes")
@@ -18,7 +19,7 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping()
-    public ResponseEntity<List<PatientDTO>> findAll(){
+    public ResponseEntity<Set<PatientDTO>> findAll(){
         return  ResponseEntity.ok(patientService.findAll());
     }
 
