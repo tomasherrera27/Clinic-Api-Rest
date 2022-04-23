@@ -22,7 +22,8 @@ public class DataLoader implements ApplicationRunner {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String password = passwordEncoder.encode("examplePassword");
         String password2 = passwordEncoder.encode("examplePassword2");
-
+        // descomentar esta linea para que cree los usuarios y despues volverla a comentar porque sino te crea los usuarios 2 veces
+        // porque en el app properties tengo update en la base de datos, no create-drop
         //userRepository.save(new User("tomas","tomasherrera12@gmail.com",password, UserRoles.ADMIN));
         //userRepository.save(new User("user","user@gmail.com",password2, UserRoles.USER));
         userRepository.delete(userRepository.getById(3));
